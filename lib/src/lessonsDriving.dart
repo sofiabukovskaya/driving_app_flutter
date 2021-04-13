@@ -7,14 +7,33 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
+final List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "Beginner"),
+TitleLessons("Observation at Junctions", "Beginner"), TitleLessons("Reverse Parallel Parking", "Intermediate"),
+TitleLessons("Reversing Around Corner", "Intermediate"), TitleLessons("Incorrect Use of Signals", "Advanced")];
+final List<IconData> icons = [Icons.drive_eta, Icons.car_rental, Icons.drive_eta_outlined, Icons.car_repair, Icons.two_wheeler];
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xFF546E7A),
+        primaryColor: Color(0xFF37474F),
         accentColor: Color(0xFF607D8B)
       ),
       home: Scaffold(
+        backgroundColor: Color(0xFF37474F),
+        body: Container(
+          child: ListView.separated(
+            padding: const EdgeInsets.all(5),
+            itemCount: titlesList.length,
+            separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey[100]),
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                  title: Text(titlesList[index].title, style: TextStyle(fontSize: 22, color: Colors.grey[100])),
+                  subtitle: Text(titlesList[index].levelLesson, style: TextStyle(fontSize: 18, color: Colors.grey[100])),
+                  leading: Icon(icons[index], color: Colors.grey[100],),
+              );
+            },
+          ),
+        ),
         appBar: AppBar(
           title: Text(
             'Lessons',
@@ -28,9 +47,9 @@ class AppState extends State<App> {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          backgroundColor: Color(0xFF546E7A),
+          backgroundColor: Color(0xFF37474F),
           selectedItemColor: Colors.amberAccent,
-          unselectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey[100],
           currentIndex: 0,
           items: [
             BottomNavigationBarItem(
@@ -54,4 +73,10 @@ class AppState extends State<App> {
       ),
     );
   }
+}
+
+class TitleLessons {
+  String title;
+  String levelLesson;
+  TitleLessons(this.title, this.levelLesson);
 }
