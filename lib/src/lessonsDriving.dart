@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class App extends StatefulWidget {
   createState() {
@@ -11,25 +15,63 @@ final List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "
 TitleLessons("Observation at Junctions", "Beginner"), TitleLessons("Reverse Parallel Parking", "Intermediate"),
 TitleLessons("Reversing Around Corner", "Intermediate"), TitleLessons("Incorrect Use of Signals", "Advanced")];
 final List<IconData> icons = [Icons.drive_eta, Icons.car_rental, Icons.drive_eta_outlined, Icons.car_repair, Icons.two_wheeler];
+final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
+
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xFF37474F),
-        accentColor: Color(0xFF607D8B)
       ),
       home: Scaffold(
         backgroundColor: Color(0xFF37474F),
         body: Container(
           child: ListView.separated(
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(8),
             itemCount: titlesList.length,
-            separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey[100]),
+            separatorBuilder: (BuildContext context, int index){
+              return SizedBox(
+                height: 8,
+              );
+            },
             itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                  title: Text(titlesList[index].title, style: TextStyle(fontSize: 22, color: Colors.grey[100])),
-                  subtitle: Text(titlesList[index].levelLesson, style: TextStyle(fontSize: 18, color: Colors.grey[100])),
-                  leading: Icon(icons[index], color: Colors.grey[100],),
+              return Card(
+                elevation: 3.5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)
+                ) ,
+                color: Colors.blueGrey[700],
+                child: ListTile(
+                  contentPadding: const EdgeInsets.all(14.0),
+                  leading: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Transform.translate(offset: Offset(6,0), child: Icon(icons[index], size: 30.0, color: Colors.grey[100])),
+                      VerticalDivider(color: Colors.blueGrey[50], width: 60,),
+                    ],
+                  ),
+                  title: Transform(
+                    transform:Matrix4.translationValues(-16, 0.0, 0.0),
+                    child:Text(titlesList[index].title, style: TextStyle(fontSize: 18, color: Colors.grey[100])) ,
+                  ),
+                  subtitle: Row (
+                    children: <Widget>[
+                      Container(
+                        transform: Matrix4.translationValues(-20, 0.0, 0.0),
+                        child: LinearPercentIndicator(
+                            width: 50,
+                            lineHeight: 8,
+                            animation: true,
+                            progressColor: Colors.amberAccent,
+                            backgroundColor: Colors.blueGrey[600],
+                            percent: percents[index],
+                            trailing: Text(titlesList[index].levelLesson, style: TextStyle(fontSize: 14, color: Colors.grey[100])),
+                        ),
+                      )
+                    ],
+                  ),
+                  trailing: Icon(Icons.arrow_forward_ios, size: 15.0, color: Colors.grey[100]),
+                ),
               );
             },
           ),
