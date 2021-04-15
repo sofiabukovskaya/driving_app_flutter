@@ -11,12 +11,12 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-final List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "Beginner"),
+
+   List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "Beginner"),
 TitleLessons("Observation at Junctions", "Beginner"), TitleLessons("Reverse Parallel Parking", "Intermediate"),
 TitleLessons("Reversing Around Corner", "Intermediate"), TitleLessons("Incorrect Use of Signals", "Advanced")];
 final List<IconData> icons = [Icons.drive_eta, Icons.car_rental, Icons.drive_eta_outlined, Icons.car_repair, Icons.two_wheeler];
 final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
-
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -69,7 +69,9 @@ final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
                         ),
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => InfoPageDriving()));
+                              MaterialPageRoute(builder: (context) => InfoPageDrivingState(textTitle: titlesList[index].title,
+                                levelDriver: titlesList[index].levelLesson, iconData:Icon(icons[index], size: 30.0, color: Colors.grey[100]), percents: percents[index],  )
+                              ));
                         },
                         subtitle: Row (
                           children: <Widget>[
