@@ -1,8 +1,8 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:drive_project_flutter/src/infoPageDriving.dart';
 
 class App extends StatefulWidget {
   createState() {
@@ -26,6 +26,15 @@ final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Lessons',
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.list), onPressed: (){})
+            ],
+          ),
           backgroundColor: Color(0xFF37474F),
           body: TabBarView(
             children: [
@@ -56,8 +65,12 @@ final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
                         ),
                         title: Transform(
                           transform:Matrix4.translationValues(-16, 0.0, 0.0),
-                          child:Text(titlesList[index].title, style: TextStyle(fontSize: 18, color: Colors.grey[100])) ,
+                          child:Text(titlesList[index].title, style: TextStyle(fontSize: 18, color: Colors.grey[100])),
                         ),
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => InfoPageDriving()));
+                        },
                         subtitle: Row (
                           children: <Widget>[
                             Container(
@@ -69,7 +82,7 @@ final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
                                 progressColor: Colors.amberAccent,
                                 backgroundColor: Colors.blueGrey[600],
                                 percent: percents[index],
-                                trailing: Text(titlesList[index].levelLesson, style: TextStyle(fontSize: 14, color: Colors.grey[100])),
+                                trailing: Text(titlesList[index].levelLesson, style: TextStyle(fontSize: 14, color: Colors.grey[100]))
                               ),
                             )
                           ],
@@ -89,15 +102,6 @@ final List<double> percents =  [0.2, 0.2, 0.5,0.5,1];
               Container(
                 color: Colors.deepPurple[300]
               )
-            ],
-          ),
-          appBar: AppBar(
-            title: Text(
-              'Lessons',
-            ),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(icon: Icon(Icons.list), onPressed: (){})
             ],
           ),
           bottomNavigationBar: TabBar(
