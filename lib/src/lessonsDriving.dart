@@ -12,7 +12,7 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
 
-   List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "Beginner"),
+  List<TitleLessons> titlesList = [TitleLessons("Introduction to Driving", "Beginner"),
 TitleLessons("Observation at Junctions", "Beginner"), TitleLessons("Reverse Parallel Parking", "Intermediate"),
 TitleLessons("Reversing Around Corner", "Intermediate"), TitleLessons("Incorrect Use of Signals", "Advanced")];
 final List<IconData> icons = [Icons.drive_eta, Icons.car_rental, Icons.drive_eta_outlined, Icons.car_repair, Icons.two_wheeler];
