@@ -1,8 +1,7 @@
-import 'package:drive_project_flutter/src/lessonsDriving.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(App());
-}
+import 'ui/main_page/main_page.dart';
+
+void main() => runApp(MainPage());
 
 
